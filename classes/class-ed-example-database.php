@@ -1,6 +1,6 @@
 <?php
 
-namespace EdLTI\classes;
+namespace EdLTIAdvantage\classes;
 
 /**
  * Get Platform information from db

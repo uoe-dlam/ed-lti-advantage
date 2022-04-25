@@ -1,5 +1,5 @@
 <?php
-namespace EdLTI\classes;
+namespace EdLTIAdvantage\classes;
 
 /**
  * WP Blog Creator.

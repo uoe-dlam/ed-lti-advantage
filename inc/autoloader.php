@@ -4,7 +4,7 @@
  * plugin.
  */
 
-spl_autoload_register( 'edlti_namespace_autoload' );
+spl_autoload_register( 'edltiadvantage_namespace_autoload' );
 
 /**
  * Dynamically loads the class attempting to be instantiated elsewhere in the
@@ -18,9 +18,9 @@ spl_autoload_register( 'edlti_namespace_autoload' );
  *
  * @param string $class_name The fully-qualified name of the class to load.
  */
-function edlti_namespace_autoload( $class_name ) {
+function edltiadvantage_namespace_autoload( $class_name ) {
 	// If the specified $class_name does not include our namespace, duck out.
-	if ( false === strpos( $class_name, 'EdLTI' ) ) {
+	if ( false === strpos( $class_name, 'EdLTIAdvantage' ) ) {
 		return;
 	}
 

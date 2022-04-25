@@ -24,13 +24,13 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-namespace EdLTI;
+namespace EdLTIAdvantage;
 
 // Include the autoloader so we can dynamically include the rest of the classes.
 require_once trailingslashit( dirname( __FILE__ ) ) . 'inc/autoloader.php';
 
-use EdLTI\classes\Ed_LTI;
+use EdLTIAdvantage\classes\Ed_LTI;
 
 new Ed_LTI();
 
-register_activation_hook( __FILE__, [ 'EdLTI\classes\Ed_LTI', 'activate' ] );
+register_activation_hook( __FILE__, [ 'EdLTIAdvantage\classes\Ed_LTI', 'activate' ] );

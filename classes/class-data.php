@@ -1,5 +1,5 @@
 <?php
-namespace EdLTI\classes;
+namespace EdLTIAdvantage\classes;
 
 /**
  * Handles LTI tables in WordPress

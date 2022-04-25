@@ -1,6 +1,6 @@
 <?php
 
-namespace EdLTI\classes;
+namespace EdLTIAdvantage\classes;
 
 use Exception;
 use InvalidArgumentException;
@@ -207,7 +207,7 @@ class Ed_LTI {
 	 *
 	 * @return WP_User
 	 */
-	private function first_or_create_user( array $data ): WP_User {
+	private function first_or_create_user( array $data ): \WP_User {
 		$user = get_user_by( 'login', $data['username'] );
 
 		if ( ! $user ) {
@@ -242,7 +242,7 @@ class Ed_LTI {
 	 *
 	 * @return void
 	 */
-	private function set_user_name_temporarily_to_vle_name( WP_User $user, array $data ): void {
+	private function set_user_name_temporarily_to_vle_name( \WP_User $user, array $data ): void {
 		if ( '' !== $data['firstname'] || '' !== $data['lastname'] ) {
 			$user->first_name = $data['firstname'];
 			$user->last_name  = $data['lastname'];
@@ -257,7 +257,7 @@ class Ed_LTI {
 	 *
 	 * @return void
 	 */
-	private function signin_user( WP_User $user, int $blog_id ): void {
+	private function signin_user( \WP_User $user, int $blog_id ): void {
 		switch_to_blog( $blog_id );
 
 		clean_user_cache( $user->ID );

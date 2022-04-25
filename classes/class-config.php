@@ -1,6 +1,6 @@
 <?php
 
-namespace EdLTI\classes;
+namespace EdLTIAdvantage\classes;
 
 /**
  * Handles LTI Config Settings.
@@ -54,7 +54,7 @@ class Config {
 		add_submenu_page(
 			'settings.php',
 			__( 'LTI Settings', 'lti-config-group' ),
-			__( 'LTI Settings' ),
+			__( 'LTI Settings 1.3' ),
 			'manage_options',
 			'lti-options',
 			[ $this, 'show_page' ]

@@ -1,5 +1,5 @@
 <?php
-namespace EdLTI\classes;
+namespace EdLTIAdvantage\classes;
 
 use stdClass;
 
@@ -29,7 +29,7 @@ class Settings {
 	 *
 	 * @return void
 	 */
-	public function lti_platform_admin() {
+	public function lti_platform_admin_advantage() {
 		$is_editing = false;
 
 		echo '<h2>LTI: Platforms</h2>';
@@ -330,11 +330,11 @@ class Settings {
 	public function network_pages() {
 		add_submenu_page(
 			'settings.php',
-			'LTI Platforms',
-			'LTI Platforms',
+			'LTI Platforms 1.3',
+			'LTI Platforms 1.3',
 			'manage_options',
-			'lti_platform_admin',
-			[ $this, 'lti_platform_admin' ]
+			'lti_platform_admin_advantage',
+			[ $this, 'lti_platform_admin_advantage' ]
 		);
 	}
 }
