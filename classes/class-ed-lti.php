@@ -173,12 +173,22 @@ class Ed_LTI {
 	 */
 	private function get_user_data( array $data ): array {
 		return array(
-			'username'  => $data['https://purl.imsglobal.org/spec/lti/claim/ext']['user_username'],
+			'username'  => $this->get_username_from_data( $data ),
 			'email'     => $data['email'],
 			'firstname' => $data['given_name'],
 			'lastname'  => $data['family_name'],
 			'password'  => $this->random_string( 20, '0123456789ABCDEFGHIJKLMNOPQRSTUVWZYZabcdefghijklmnopqrstuvwxyz' ),
 		);
+	}
+
+	public function get_username_from_data( array $data ): string {
+		$username = $data['https://purl.imsglobal.org/spec/lti/claim/ext']['user_username'] ?? $data['https://purl.imsglobal.org/spec/lti/claim/custom']['user_username'] ?? null;
+
+		if ( is_null( $username ) ) {
+			wp_die( 'Your LMS provider did not supply a username' );
+		}
+
+		return $username;
 	}
 
 	/**
@@ -194,7 +204,7 @@ class Ed_LTI {
 			'course_title'     => $data['https://purl.imsglobal.org/spec/lti/claim/context']['title'],
 			'domain'           => get_current_site()->domain,
 			'resource_link_id' => $data['https://purl.imsglobal.org/spec/lti/claim/resource_link']['id'],
-			'username'         => $data['https://purl.imsglobal.org/spec/lti/claim/ext']['user_username'],
+			'username'         => $this->get_username_from_data( $data ),
 			'site_category'    => $site_category,
 			'source_id'        => get_site_option( 'default_site_template_id' ),
 		];
