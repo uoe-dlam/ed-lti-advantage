@@ -1,0 +1,20 @@
+{
+  "name": "uoe-dlam/rl-lti-advantage",
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "https://github.com/IMSGlobal/lti-1-3-php-library",
+      "no-api": true
+    }
+  ],
+  "authors": [
+    {
+      "name": "DLAM Applications Development Tea",
+      "email": "ltw-apps-dev@ed.ac.uk"
+    }
+  ],
+  "require": {
+    "imsglobal/lti-1p3-tool": "dev-master",
+    "ext-pdo": "*"
+  }
+}
