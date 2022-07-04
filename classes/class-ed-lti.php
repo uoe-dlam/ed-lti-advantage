@@ -47,7 +47,7 @@ class Ed_LTI {
 	 */
 	public static function activate(): void {
 		$data = new Data();
-		$data->maybe_create_db();
+		$data->maybe_create_platforms_table();
 		$data->maybe_create_site_blogs_meta_table();
 	}
 

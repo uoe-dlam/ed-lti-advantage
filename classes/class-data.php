@@ -25,7 +25,7 @@ class Data {
 	 *
 	 * @return void
 	 */
-	public function maybe_create_db() {
+	public function maybe_create_platforms_table() {
 		$this->wpdb->ltiplatformstable = $this->wpdb->base_prefix . 'lti_platforms';
 
 		if ( is_user_logged_in() && is_super_admin() ) {
