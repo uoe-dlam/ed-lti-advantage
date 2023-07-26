@@ -14,6 +14,7 @@ namespace EdLTIAdvantage\classes;
  */
 class Blog_Creator_Factory {
 	public static function instance() {
-		return Ed_LTI::is_nscloner_installed() ? new NS_Cloner_Blog_Creator() : new WP_Blog_Creator();
+		return new WP_Blog_Creator();
+		// return Ed_LTI::is_nscloner_installed() ? new NS_Cloner_Blog_Creator() : new WP_Blog_Creator();
 	}
 }
