@@ -91,6 +91,7 @@ class Ed_LTI {
 	 */
 	public function do_launch(): void {
 		if ( $this->is_basic_lti_request() ) {
+			session_start();
 			$launch = LTI\LTI_Message_Launch::new( new ED_Example_Database( $_SESSION['client_id'] ) )->validate();
 			$data   = $launch->get_launch_data();
 			$this->destroy_session();
