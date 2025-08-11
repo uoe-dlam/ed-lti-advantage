@@ -1,5 +1,5 @@
 {
-  "name": "uoe-dlam/rl-lti-advantage",
+  "name": "uoe-dlam/lti-advantage",
   "repositories": [
     {
       "type": "vcs",
@@ -9,7 +9,7 @@
   ],
   "authors": [
     {
-      "name": "DLAM Applications Development Tea",
+      "name": "DLAM Applications Development Team",
       "email": "ltw-apps-dev@ed.ac.uk"
     }
   ],
