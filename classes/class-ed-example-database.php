@@ -13,6 +13,7 @@ namespace EdLTIAdvantage\classes;
  */
 
 use Packback\Lti1p3;
+use Packback\Lti1p3\Interfaces\ILtiRegistration;
 
 class Ed_Example_Database implements Lti1p3\Interfaces\IDatabase
 {
@@ -28,7 +29,7 @@ class Ed_Example_Database implements Lti1p3\Interfaces\IDatabase
         $this->client_id = $client_id;
     }
 
-    public function findRegistrationByIssuer($iss)
+    public function findRegistrationByIssuer($iss): ?Lti1p3\LtiRegistration
     {
         $platform = $this->get_platform($iss);
 
@@ -37,11 +38,11 @@ class Ed_Example_Database implements Lti1p3\Interfaces\IDatabase
         }
 
         return Lti1p3\LtiRegistration::new()
-                                   ->set_auth_login_url($platform->auth_login_url)
-                                   ->set_auth_token_url($platform->auth_token_url)
-                                   ->set_client_id($this->client_id)
-                                   ->set_key_set_url($platform->key_set_url)
-                                   ->set_issuer($iss);
+                                   ->setAuthLoginUrl($platform->auth_login_url)
+                                   ->setAuthTokenUrl($platform->auth_token_url)
+                                   ->setClientId($this->client_id)
+                                   ->setKeySetUrl($platform->key_set_url)
+                                   ->getIssuer($iss);
     }
 
     /**
@@ -56,7 +57,7 @@ class Ed_Example_Database implements Lti1p3\Interfaces\IDatabase
         return $this->wpdb->get_row($this->wpdb->prepare($query, [ $iss, $this->client_id ]));
     }
 
-    public function findDeployment($iss, $deployment_id)
+    public function findDeployment($iss, $deployment_id): ?Lti1p3\LtiDeployment
     {
         $platform = $this->get_platform($iss);
 
@@ -65,6 +66,6 @@ class Ed_Example_Database implements Lti1p3\Interfaces\IDatabase
         }
 
         return Lti1p3\LtiDeployment::new()
-                                 ->set_deployment_id($platform->deployment_id);
+                                 ->setDeploymentId($platform->deployment_id);
     }
 }

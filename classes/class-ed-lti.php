@@ -82,9 +82,10 @@ class Ed_LTI
 
             $_SESSION['client_id'] = $_REQUEST['client_id'];
 
-            Lti1p3\LtiOidcLogin::new(new Ed_Example_Database($_SESSION['client_id']))
-                              ->do_oidc_login_redirect(get_site_url() . '?lti-blog=true')
-                              ->do_redirect();
+            $redirect = Lti1p3\LtiOidcLogin::new(new Ed_Example_Database($_SESSION['client_id']))
+                              ->getOidcLoginUrl(get_site_url() . '?lti-blog=true');
+
+            wp_redirect($redirect);
         }
     }
 
