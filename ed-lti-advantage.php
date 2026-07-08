@@ -4,7 +4,7 @@
 Plugin Name: UoE LTI Advantage
 Description: Allows LMSs to create blogs in a WordPress multisite installation via an LTI 1.3 connection
 Author: DLAM Applications Development Team
-Version: 1.0
+Version: 1.1
 Copyright: University of Edinburgh
 License: GPL-3.0+
 */
@@ -27,10 +27,10 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 namespace EdLTIAdvantage;
 
 // Include the autoloader so we can dynamically include the rest of the classes.
-require_once trailingslashit( dirname( __FILE__ ) ) . 'inc/autoloader.php';
+require_once trailingslashit(dirname(__FILE__)) . 'inc/autoloader.php';
 
 use EdLTIAdvantage\classes\Ed_LTI;
 
 new Ed_LTI();
 
-register_activation_hook( __FILE__, [ 'EdLTIAdvantage\classes\Ed_LTI', 'activate' ] );
+register_activation_hook(__FILE__, [ 'EdLTIAdvantage\classes\Ed_LTI', 'activate' ]);
