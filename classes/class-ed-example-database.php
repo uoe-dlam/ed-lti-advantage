@@ -13,7 +13,6 @@ namespace EdLTIAdvantage\classes;
  */
 
 use Packback\Lti1p3;
-use Packback\Lti1p3\Interfaces\ILtiRegistration;
 
 class Ed_Example_Database implements Lti1p3\Interfaces\IDatabase
 {
