@@ -14,7 +14,7 @@ namespace EdLTIAdvantage\classes;
 
 use Packback\Lti1p3;
 
-class Ed_Example_Database implements Lti1p3\IDatabase
+class Ed_Example_Database implements Lti1p3\Interfaces\IDatabase
 {
     private $wpdb;
     private $client_id;
