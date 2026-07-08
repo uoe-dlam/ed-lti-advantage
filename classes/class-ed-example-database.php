@@ -38,7 +38,7 @@ class Ed_Example_Database implements Lti1p3\Interfaces\IDatabase
             wp_die('The platform that you linked from does not seem to be on out list of approved platforms. Please contact the site administrator.');
         }
 
-        return Lti1p3\LtiRegistration::new()
+        return ILtiRegistration::new()
                                    ->setAuthLoginUrl($platform->auth_login_url)
                                    ->setAuthTokenUrl($platform->auth_token_url)
                                    ->setClientId($this->client_id)
