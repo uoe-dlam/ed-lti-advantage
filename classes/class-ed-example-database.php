@@ -28,7 +28,7 @@ class Ed_Example_Database implements Lti1p3\Interfaces\IDatabase
         $this->client_id = $client_id;
     }
 
-    public function find_registration_by_issuer($iss): Lti1p3\LtiRegistration
+    public function findRegistrationByIssuer($iss): Lti1p3\LtiRegistration
     {
         $platform = $this->get_platform($iss);
 
@@ -56,7 +56,7 @@ class Ed_Example_Database implements Lti1p3\Interfaces\IDatabase
         return $this->wpdb->get_row($this->wpdb->prepare($query, [ $iss, $this->client_id ]));
     }
 
-    public function find_deployment($iss, $deployment_id): Lti1p3\LtiDeployment
+    public function findDeployment($iss, $deployment_id): Lti1p3\LtiDeployment
     {
         $platform = $this->get_platform($iss);
 
