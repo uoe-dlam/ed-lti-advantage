@@ -29,7 +29,6 @@
             "classmap_prefix": "UoEDLAM_Vendor_",
             "functions_prefix": "uoedlam_vendor_",
             "constants_prefix": "UOEDLAM_VENDOR_",
-            "place_packages_in": "src/ThirdParty",
             "override_autoload": true,
             "exclude_from_prefix": [
                 "Psr\\",
