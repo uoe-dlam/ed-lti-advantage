@@ -16,7 +16,7 @@ use PDO;
  * @link https://github.com/uoe-dlam/ed-lti-advantage
  */
 
-require_once __DIR__ . '/../vendor/autoload.php';
+require_once __DIR__ . '/../vendor-prefixed/autoload.php';
 require_once ABSPATH . 'wp-admin/includes/plugin.php';
 
 use UoEDLAM\Vendor\IMSGlobal\LTI;
