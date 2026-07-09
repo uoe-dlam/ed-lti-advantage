@@ -1,20 +1,60 @@
 {
-  "name": "uoe-dlam/lti-advantage",
-  "repositories": [
-    {
-      "type": "vcs",
-      "url": "https://github.com/IMSGlobal/lti-1-3-php-library",
-      "no-api": true
-    }
-  ],
-  "authors": [
-    {
-      "name": "DLAM Applications Development Team",
-      "email": "ltw-apps-dev@ed.ac.uk"
-    }
-  ],
-  "require": {
-    "imsglobal/lti-1p3-tool": "dev-master",
-    "ext-pdo": "*"
-  }
+    "name": "uoe-dlam/lti-advantage",
+    "type": "wordpress-plugin",
+    "description": "LTI Advantage tool for WordPress",
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/IMSGlobal/lti-1-3-php-library",
+            "no-api": true
+        }
+    ],
+    "authors": [
+        {
+            "name": "DLAM Applications Development Team",
+            "email": "ltw-apps-dev@ed.ac.uk"
+        }
+    ],
+    "require": {
+        "php": ">=7.4",
+        "ext-pdo": "*",
+        "imsglobal/lti-1p3-tool": "dev-master"
+    },
+    "require-dev": {
+        "brianhenryie/strauss": "^0.15"
+    },
+    "autoload": {
+        "psr-4": {
+            "UoEDLAM\\LtiAdvantage\\": "src/"
+        }
+    },
+    "extra": {
+        "strauss": {
+            "namespace_prefix": "UoEDLAM\\Vendor\\",
+            "classmap_prefix": "UoEDLAM_Vendor_",
+            "functions_prefix": "uoedlam_vendor_",
+            "constants_prefix": "UOEDLAM_VENDOR_",
+            "place_packages_in": "src/ThirdParty",
+            "override_autoload": true,
+            "exclude_from_prefix": [
+                "Psr\\",
+                "Composer\\"
+            ]
+        }
+    },
+    "scripts": {
+        "post-install-cmd": [
+            "vendor/bin/strauss"
+        ],
+        "post-update-cmd": [
+            "vendor/bin/strauss"
+        ]
+    },
+    "config": {
+        "allow-plugins": {
+            "brianhenryie/strauss": true
+        },
+        "sort-packages": true
+    },
+    "prefer-stable": true
 }
