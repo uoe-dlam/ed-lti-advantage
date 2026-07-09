@@ -23,11 +23,6 @@
     "require-dev": {
         "brianhenryie/strauss": "^0.15"
     },
-    "autoload": {
-        "psr-4": {
-            "UoEDLAM\\LtiAdvantage\\": "src/"
-        }
-    },
     "extra": {
         "strauss": {
             "namespace_prefix": "UoEDLAM\\Vendor\\",
