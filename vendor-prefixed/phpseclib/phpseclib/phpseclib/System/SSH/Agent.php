@@ -30,7 +30,7 @@
  * @link      http://phpseclib.sourceforge.net
  * @internal  See http://api.libssh.org/rfc/PROTOCOL.agent
  *
- * Modified by DLAM Applications Development Team on 09-July-2026 using {@see https://github.com/BrianHenryIE/strauss}.
+ * Modified by DLAM Applications Development Team on 27-July-2026 using {@see https://github.com/BrianHenryIE/strauss}.
  */
 
 namespace UoEDLAM\Vendor\phpseclib\System\SSH;
@@ -135,9 +135,20 @@ class Agent
             }
         }
 
-        $this->fsock = fsockopen('unix://' . $address, 0, $errno, $errstr);
-        if (!$this->fsock) {
-            user_error("Unable to connect to ssh-agent (Error $errno: $errstr)");
+        if (in_array('unix', stream_get_transports())) {
+            $this->fsock = fsockopen('unix://' . $address, 0, $errno, $errstr);
+            if (!$this->fsock) {
+                user_error("Unable to connect to ssh-agent (Error $errno: $errstr)");
+            }
+        } else {
+            if (substr($address, 0, 9) != '\\\\.\\pipe\\' || strpos(substr($address, 9), '\\') !== false) {
+                user_error('Address is not formatted as a named pipe should be');
+            } else {
+                $this->fsock = fopen($address, 'r+b');
+                if (!$this->fsock) {
+                    user_error('Unable to open address');
+                }
+            }
         }
     }
 

@@ -12,7 +12,7 @@
  * @link      http://phpseclib.sourceforge.net
  * @internal  See http://api.libssh.org/rfc/PROTOCOL.agent
  *
- * Modified by DLAM Applications Development Team on 09-July-2026 using {@see https://github.com/BrianHenryIE/strauss}.
+ * Modified by DLAM Applications Development Team on 27-July-2026 using {@see https://github.com/BrianHenryIE/strauss}.
  */
 
 namespace UoEDLAM\Vendor\phpseclib\System\SSH\Agent;

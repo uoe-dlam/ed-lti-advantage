@@ -29,7 +29,7 @@
  * @license   http://www.opensource.org/licenses/mit-license.html  MIT License
  * @link      http://phpseclib.sourceforge.net
  *
- * Modified by DLAM Applications Development Team on 09-July-2026 using {@see https://github.com/BrianHenryIE/strauss}.
+ * Modified by DLAM Applications Development Team on 27-July-2026 using {@see https://github.com/BrianHenryIE/strauss}.
  */
 
 namespace UoEDLAM\Vendor\phpseclib\Net;
@@ -97,6 +97,15 @@ class SCP
     var $mode;
 
     /**
+     * Error information
+     *
+     * @see self::getSCPErrors()
+     * @see self::getLastSCPError()
+     * @var array
+     */
+    var $scp_errors = array();
+
+    /**
      * Default Constructor.
      *
      * Connects to an SSH server
@@ -157,6 +166,7 @@ class SCP
 
         $temp = $this->_receive();
         if ($temp !== chr(0)) {
+            $this->_close();
             return false;
         }
 
@@ -170,12 +180,14 @@ class SCP
             $size = strlen($data);
         } else {
             if (!is_file($data)) {
+                $this->_close();
                 user_error("$data is not a valid file", E_USER_NOTICE);
                 return false;
             }
 
             $fp = @fopen($data, 'rb');
             if (!$fp) {
+                $this->_close();
                 return false;
             }
             $size = filesize($data);
@@ -185,6 +197,7 @@ class SCP
 
         $temp = $this->_receive();
         if ($temp !== chr(0)) {
+            $this->_close();
             return false;
         }
 
@@ -231,7 +244,18 @@ class SCP
 
         $this->_send("\0");
 
-        if (!preg_match('#(?<perms>[^ ]+) (?<size>\d+) (?<name>.+)#', rtrim($this->_receive()), $info)) {
+        $info = $this->_receive();
+
+        // per https://goteleport.com/blog/scp-familiar-simple-insecure-slow/ non-zero responses mean there are errors
+        if ($info[0] === chr(1) || $info[0] == chr(2)) {
+            $type = $info[0] === chr(1) ? 'warning' : 'error';
+            $this->scp_errors[] = "$type: " . substr($info, 1);
+            $this->_close();
+            return false;
+        }
+
+        if (!preg_match('#(?<perms>[^ ]+) (?<size>\d+) (?<name>.+)#', rtrim($info), $info)) {
+            $this->_close();
             return false;
         }
 
@@ -242,6 +266,7 @@ class SCP
         if ($local_file !== false) {
             $fp = @fopen($local_file, 'wb');
             if (!$fp) {
+                $this->_close();
                 return false;
             }
         }
@@ -249,8 +274,30 @@ class SCP
         $content = '';
         while ($size < $info['size']) {
             $data = $this->_receive();
+
+            // Terminate the loop in case the server repeatedly sends an empty response
+            if ($data === false) {
+                $this->_close();
+                user_error('No data received from server', E_USER_NOTICE);
+                return false;
+            }
+
             // SCP usually seems to split stuff out into 16k chunks
-            $size+= strlen($data);
+            $length = strlen($data);
+            $size+= $length;
+            $end = $size > $info['size'];
+            if ($end) {
+                $diff = $size - $info['size'];
+                $offset = $length - $diff;
+                if ($data[$offset] === chr(0)) {
+                    $data = substr($data, 0, -$diff);
+                } else {
+                    $type = $data[$offset] === chr(1) ? 'warning' : 'error';
+                    $this->scp_errors[] = "$type: " . substr($data, 1);
+                    $this->_close();
+                    return false;
+                }
+            }
 
             if ($local_file === false) {
                 $content.= $data;
@@ -340,5 +387,25 @@ class SCP
             case self::MODE_SSH1:
                 $this->ssh->disconnect();
         }
+    }
+
+    /**
+     * Returns all errors on the SCP layer
+     *
+     * @return array
+     */
+    function getSCPErrors()
+    {
+        return $this->scp_errors;
+    }
+
+    /**
+     * Returns the last error on the SCP layer
+     *
+     * @return string
+     */
+    function getLastSCPError()
+    {
+        return count($this->scp_errors) ? $this->scp_errors[count($this->scp_errors) - 1] : '';
     }
 }

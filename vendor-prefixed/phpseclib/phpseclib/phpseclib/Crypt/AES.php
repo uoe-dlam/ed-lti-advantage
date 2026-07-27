@@ -46,7 +46,7 @@
  * @license   http://www.opensource.org/licenses/mit-license.html  MIT License
  * @link      http://phpseclib.sourceforge.net
  *
- * Modified by DLAM Applications Development Team on 09-July-2026 using {@see https://github.com/BrianHenryIE/strauss}.
+ * Modified by DLAM Applications Development Team on 27-July-2026 using {@see https://github.com/BrianHenryIE/strauss}.
  */
 
 namespace UoEDLAM\Vendor\phpseclib\Crypt;
@@ -86,43 +86,13 @@ class AES extends Rijndael
      */
     function setKeyLength($length)
     {
-        switch ($length) {
-            case 160:
-                $length = 192;
-                break;
-            case 224:
-                $length = 256;
-        }
         parent::setKeyLength($length);
-    }
-
-    /**
-     * Sets the key.
-     *
-     * Rijndael supports five different key lengths, AES only supports three.
-     *
-     * @see \UoEDLAM\Vendor\phpseclib\Crypt\Rijndael:setKey()
-     * @see setKeyLength()
-     * @access public
-     * @param string $key
-     */
-    function setKey($key)
-    {
-        parent::setKey($key);
-
-        if (!$this->explicit_key_length) {
-            $length = strlen($key);
-            switch (true) {
-                case $length <= 16:
-                    $this->key_length = 16;
-                    break;
-                case $length <= 24:
-                    $this->key_length = 24;
-                    break;
-                default:
-                    $this->key_length = 32;
-            }
-            $this->_setEngine();
+        switch ($this->key_length) {
+            case 20:
+                $this->key_length = 24;
+                break;
+            case 28:
+                $this->key_length = 32;
         }
     }
 }

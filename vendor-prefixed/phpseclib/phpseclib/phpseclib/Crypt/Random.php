@@ -21,7 +21,7 @@
  * @license   http://www.opensource.org/licenses/mit-license.html  MIT License
  * @link      http://phpseclib.sourceforge.net
  *
- * Modified by DLAM Applications Development Team on 09-July-2026 using {@see https://github.com/BrianHenryIE/strauss}.
+ * Modified by DLAM Applications Development Team on 27-July-2026 using {@see https://github.com/BrianHenryIE/strauss}.
  */
 
 namespace UoEDLAM\Vendor\phpseclib\Crypt;
@@ -153,7 +153,10 @@ class Random
                 (isset($_POST) ? phpseclib_safe_serialize($_POST) : '') .
                 (isset($_GET) ? phpseclib_safe_serialize($_GET) : '') .
                 (isset($_COOKIE) ? phpseclib_safe_serialize($_COOKIE) : '') .
-                phpseclib_safe_serialize($GLOBALS) .
+                // as of PHP 8.1 $GLOBALS can't be accessed by reference, which eliminates
+                // the need for phpseclib_safe_serialize. see https://wiki.php.net/rfc/restrict_globals_usage
+                // for more info
+                (version_compare(PHP_VERSION, '8.1.0', '>=') ? serialize($GLOBALS) : phpseclib_safe_serialize($GLOBALS)) .
                 phpseclib_safe_serialize($_SESSION) .
                 phpseclib_safe_serialize($_OLD_SESSION)
             ));

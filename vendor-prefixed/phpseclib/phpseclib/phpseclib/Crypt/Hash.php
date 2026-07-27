@@ -35,7 +35,7 @@
  * @license   http://www.opensource.org/licenses/mit-license.html  MIT License
  * @link      http://phpseclib.sourceforge.net
  *
- * Modified by DLAM Applications Development Team on 09-July-2026 using {@see https://github.com/BrianHenryIE/strauss}.
+ * Modified by DLAM Applications Development Team on 27-July-2026 using {@see https://github.com/BrianHenryIE/strauss}.
  */
 
 namespace UoEDLAM\Vendor\phpseclib\Crypt;
@@ -868,7 +868,7 @@ class Hash
             $result+= $argument < 0 ? ($argument & 0x7FFFFFFF) + 0x80000000 : $argument;
         }
 
-        if ((php_uname('m') & "\xDF\xDF\xDF") != 'ARM') {
+        if (function_exists('php_uname') && is_string(php_uname('m')) && (php_uname('m') & "\xDF\xDF\xDF") != 'ARM') {
             return fmod($result, $mod);
         }
 
