@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Changed
 
-- Use extrenal tool to isolate the plugin Vendor libraries so the plugin still works without a clash with other Wordpress plugins (PR #17)
+- Use external tool to isolate the plugin Vendor libraries so the plugin still works without a clash with other Wordpress plugins (PR #17)
 
 ### Fixed
 
