@@ -4,7 +4,7 @@
 Plugin Name: UoE LTI Advantage
 Description: Allows LMSs to create blogs in a WordPress multisite installation via an LTI 1.3 connection
 Author: DLAM Applications Development Team
-Version: 1.1
+Version: 1.1.0
 Copyright: University of Edinburgh
 License: GPL-3.0+
 */
