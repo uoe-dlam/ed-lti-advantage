@@ -33,7 +33,7 @@ class Ed_Example_Database implements LTI\Database
         $platform = $this->get_platform($iss);
 
         if (empty($platform)) {
-            wp_die('The platform that you linked from does not seem to be on out list of approved platforms. Please contact the site administrator.');
+            wp_die('Registration error: The platform that you linked from does not seem to be on our list of approved platforms. Please contact the site administrator.');
         }
 
         return LTI\LTI_Registration::new()
@@ -61,7 +61,7 @@ class Ed_Example_Database implements LTI\Database
         $platform = $this->get_platform($iss);
 
         if (empty($platform)) {
-            wp_die('The platform that you linked from does not seem to be on out list of approved platforms. Please contact the site administrator.');
+            wp_die('Registration error: The platform that you linked from does not seem to be on our list of approved platforms. Please contact the site administrator.');
         }
 
         return LTI\LTI_Deployment::new()
